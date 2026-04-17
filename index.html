@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trendakış</title>
+  <meta
+    name="description"
+    content="Trendakış: Gündemdeki konuları 1 dakikada sade anlatan modern trend ve açıklayıcı içerik platformu."
+  />
+  <meta name="theme-color" content="#0b0d10" />
+  <style>
+    :root{
+      --bg:#07090c;
+      --bg-soft:#0d1117;
+      --panel:#11161d;
+      --panel-2:#151b23;
+      --line:#222a35;
+      --text:#f3f5f7;
+      --muted:#9aa6b2;
+      --accent:#6ee7f9;
+      --accent-2:#8b5cf6;
+      --success:#22c55e;
+      --max:1200px;
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(110,231,249,0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(139,92,246,0.10), transparent 24%),
+        linear-gradient(180deg, #0a0c10 0%, #07090c 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(12px);
+      background:rgba(7,9,12,0.78);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:900;
+      letter-spacing:-0.04em;
+      padding:16px 0;
+    }
+
+    .brand-badge{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      box-shadow:0 0 18px rgba(110,231,249,0.55);
+    }
+
+    .brand span{
+      background:linear-gradient(90deg,#ffffff,var(--accent));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:15px;
+      font-weight:700;
+      transition:.2s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--text);
+    }
+
+    .nav-cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav-cta a{
+      padding:10px 14px;
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      background:rgba(255,255,255,0.03);
+      transition:.2s ease;
+    }
+
+    .nav-cta a:hover{
+      border-color:rgba(255,255,255,0.22);
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      border-bottom:1px solid var(--line);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(320px,0.92fr);
+      gap:34px;
+      align-items:center;
+      min-height:calc(100vh - 74px);
+      padding:48px 0 72px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(110,231,249,0.20);
+      background:rgba(110,231,249,0.08);
+      color:var(--accent);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .pulse{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--success);
+      box-shadow:0 0 14px rgba(34,197,94,.55);
+    }
+
+    .hero h1{
+      margin:0;
+      font-size:clamp(52px, 8vw, 108px);
+      line-height:.95;
+      letter-spacing:-0.06em;
+      max-width:780px;
+    }
+
+    .hero p{
+      max-width:720px;
+      margin:18px 0 0;
+      color:var(--muted);
+      font-size:18px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:50px;
+      padding:0 18px;
+      border-radius:14px;
+      font-size:15px;
+      font-weight:800;
+      transition:.2s ease;
+      border:1px solid transparent;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:#000;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.03);
+      border-color:rgba(255,255,255,0.10);
+      color:#fff;
+    }
+
+    .btn-secondary:hover{
+      border-color:rgba(255,255,255,0.22);
+    }
+
+    .hero-panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:28px;
+      padding:18px;
+      box-shadow:0 20px 60px rgba(0,0,0,.34);
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .stat{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .stat small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:8px;
+      font-weight:800;
+    }
+
+    .stat strong{
+      font-size:28px;
+      letter-spacing:-0.04em;
+    }
+
+    .mini-list{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .mini-item{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 18px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .mini-item:last-child{
+      border-bottom:none;
+    }
+
+    .mini-item h4{
+      margin:0;
+      font-size:16px;
+    }
+
+    .mini-item p{
+      margin:6px 0 0;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .tag{
+      white-space:nowrap;
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      background:rgba(110,231,249,0.10);
+      color:var(--accent);
+      border:1px solid rgba(110,231,249,0.16);
+    }
+
+    section{
+      padding:84px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-bottom:26px;
+    }
+
+    .section-label{
+      color:var(--accent);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      margin-bottom:8px;
+    }
+
+    .section-title{
+      margin:0;
+      font-size:clamp(28px, 4vw, 44px);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .section-sub{
+      margin:10px 0 0;
+      color:var(--muted);
+      max-width:760px;
+      font-size:17px;
+    }
+
+    .trend-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .trend-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      transition:.2s ease;
+    }
+
+    .trend-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,0.16);
+    }
+
+    .trend-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .trend-card h3{
+      margin:0 0 10px;
+      font-size:24px;
+      line-height:1.1;
+      letter-spacing:-0.03em;
+    }
+
+    .trend-card p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .bullet-list{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .bullet-list li + li{
+      margin-top:8px;
+    }
+
+    .trend-footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid var(--line);
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .cats{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .cat{
+      display:block;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px;
+      transition:.2s ease;
+    }
+
+    .cat:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,0.16);
+    }
+
+    .cat small{
+      display:block;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+
+    .cat strong{
+      display:block;
+      font-size:24px;
+      letter-spacing:-0.03em;
+      margin-bottom:10px;
+    }
+
+    .cat p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .how-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .how-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px;
+    }
+
+    .how-num{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, rgba(110,231,249,0.18), rgba(139,92,246,0.20));
+      color:#fff;
+      font-weight:900;
+      margin-bottom:14px;
+    }
+
+    .how-card h3{
+      margin:0 0 10px;
+      font-size:22px;
+    }
+
+    .how-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .footer{
+      padding:28px 0 48px;
+    }
+
+    .footer-wrap{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    @media (max-width: 1080px){
+      .hero-grid,
+      .trend-grid,
+      .cats,
+      .how-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 720px){
+      .container{
+        width:min(var(--max), calc(100% - 20px));
+      }
+
+      .brand{
+        font-size:25px;
+      }
+
+      .hero-grid{
+        min-height:auto;
+        padding:34px 0 54px;
+      }
+
+      section{
+        padding:64px 0;
+      }
+
+      .hero-stats{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <span class="brand-badge"></span>
+        <span>Trendakış</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#bugun">Bugün Trend</a>
+        <a href="#kategoriler">Kategoriler</a>
+        <a href="#icerikler">İçerikler</a>
+        <a href="#nasil">Nasıl Çalışır</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#icerikler">Bugün Ne Konuşuluyor?</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="pulse"></span>
+            Gündem şimdi akıyor
+          </div>
+
+          <h1>Gündemi 1 dakikada anla.</h1>
+
+          <p>
+            Trendakış, internette konuşulan konuları kısa, sade ve net anlatır.
+            Uzun haber değil; doğrudan özet, bağlam ve neden önemli kısmı.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#icerikler">Trendleri Gör</a>
+            <a class="btn btn-secondary" href="#nasil">Nasıl Çalışır?</a>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="hero-stats">
+            <div class="stat">
+              <small>Bugün</small>
+              <strong>5 Trend</strong>
+            </div>
+            <div class="stat">
+              <small>Format</small>
+              <strong>1 Dakika</strong>
+            </div>
+          </div>
+
+          <div class="mini-list">
+            <div class="mini-item">
+              <div>
+                <h4>OpenAI yeni model</h4>
+                <p>Hız, doğruluk ve yapay zeka rekabeti.</p>
+              </div>
+              <span class="tag">AI</span>
+            </div>
+            <div class="mini-item">
+              <div>
+                <h4>TikTok algoritması</h4>
+                <p>İzlenmeler neden düştü sorusu yeniden gündemde.</p>
+              </div>
+              <span class="tag">Sosyal</span>
+            </div>
+            <div class="mini-item">
+              <div>
+                <h4>AI ile müzik üretimi</h4>
+                <p>İçerik üretimi ve sanat tartışması büyüyor.</p>
+              </div>
+              <span class="tag">Müzik</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bugun">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Bugün</div>
+            <h2 class="section-title">Şu an en çok konuşulanlar</h2>
+            <p class="section-sub">
+              Kısa özet, neden trend olduğu ve neden önemli olduğu tek kartta.
+            </p>
+          </div>
+        </div>
+
+        <div class="trend-grid">
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">AI</span>
+              <span style="color:var(--muted);font-size:13px;">Bugün</span>
+            </div>
+            <h3>OpenAI yeni model çıkardı</h3>
+            <p>
+              Yeni model daha hızlı ve daha doğru sonuçlarla gündeme oturdu.
+            </p>
+            <ul class="bullet-list">
+              <li>Neden trend: yapay zeka rekabeti büyüyor.</li>
+              <li>Neden önemli: iş yapış şekillerini etkileyebilir.</li>
+              <li>Sana etkisi: AI araçları günlük hayatta daha görünür olur.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>2 cümlede anla</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">Sosyal</span>
+              <span style="color:var(--muted);font-size:13px;">Bugün</span>
+            </div>
+            <h3>TikTok algoritması değişti mi?</h3>
+            <p>
+              İçerik üreticiler son günlerde izlenme düşüşü konuşuyor.
+            </p>
+            <ul class="bullet-list">
+              <li>Neden trend: görünürlük düşüşü tartışılıyor.</li>
+              <li>Neden önemli: paylaşım stratejileri değişebilir.</li>
+              <li>Sana etkisi: saat, format ve ilk 3 saniye daha kritik olur.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>Hızlı açıklama</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">Müzik</span>
+              <span style="color:var(--muted);font-size:13px;">Bugün</span>
+            </div>
+            <h3>Yapay zeka ile şarkı üretimi patladı</h3>
+            <p>
+              AI müzik araçları hızla yayılıyor ve tartışma büyüyor.
+            </p>
+            <ul class="bullet-list">
+              <li>Neden trend: viral içerikler çoğaldı.</li>
+              <li>Neden önemli: müzik üretimi demokratikleşiyor.</li>
+              <li>Sana etkisi: içerik üretmek kolaylaşıyor, rekabet artıyor.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>Kısa analiz</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="kategoriler">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Kategoriler</div>
+            <h2 class="section-title">Takip ettiğimiz akışlar</h2>
+            <p class="section-sub">
+              Her şeyi değil; insanların anlamaya çalıştığı konuları öne çıkarıyoruz.
+            </p>
+          </div>
+        </div>
+
+        <div class="cats">
+          <article class="cat">
+            <small>01</small>
+            <strong>Yapay Zeka</strong>
+            <p>Yeni modeller, araçlar, uygulamalar ve gerçek hayata etkileri.</p>
+          </article>
+
+          <article class="cat">
+            <small>02</small>
+            <strong>Sosyal Medya</strong>
+            <p>Algoritmalar, platform değişiklikleri ve viral gündemler.</p>
+          </article>
+
+          <article class="cat">
+            <small>03</small>
+            <strong>Dünya Gündemi</strong>
+            <p>Büyük olayların kısa, sade ve politik boğulmadan özeti.</p>
+          </article>
+
+          <article class="cat">
+            <small>04</small>
+            <strong>Dijital Kültür</strong>
+            <p>İnternette herkesin konuştuğu ama çoğunun tam anlamadığı şeyler.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="icerikler">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-label">İçerikler</div>
+            <h2 class="section-title">İlk 5 içerik</h2>
+            <p class="section-sub">
+              Başlangıç sürümü için örnek içerikler hazır. Sonra bunları günlük güncellersin.
+            </p>
+          </div>
+        </div>
+
+        <div class="trend-grid">
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">AI</span>
+              <span style="color:var(--muted);font-size:13px;">#1</span>
+            </div>
+            <h3>OpenAI yeni model çıkardı</h3>
+            <p>Yeni model daha hızlı ve daha doğru sonuçlarla dikkat çekiyor.</p>
+            <ul class="bullet-list">
+              <li>Neden trend: rekabet ve yeni yetenekler.</li>
+              <li>Neden önemli: iş ve eğitim araçlarını etkileyebilir.</li>
+              <li>Sana etkisi: AI daha sık günlük iş akışına girecek.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>2 cümlede</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">Sosyal</span>
+              <span style="color:var(--muted);font-size:13px;">#2</span>
+            </div>
+            <h3>TikTok algoritması değişti mi?</h3>
+            <p>İçerik üreticiler izlenme dalgalanmalarını konuşuyor.</p>
+            <ul class="bullet-list">
+              <li>Neden trend: erişim düşüşü hissediliyor.</li>
+              <li>Neden önemli: strateji ve içerik formatı değişebilir.</li>
+              <li>Sana etkisi: ilk saniyeler daha önemli hale geliyor.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>Hızlı özet</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">Müzik</span>
+              <span style="color:var(--muted);font-size:13px;">#3</span>
+            </div>
+            <h3>AI ile şarkı üretimi patladı</h3>
+            <p>Yapay zeka ile müzik üretimi artık ana akım tartışma konusu.</p>
+            <ul class="bullet-list">
+              <li>Neden trend: viral örnekler arttı.</li>
+              <li>Neden önemli: üretim süreçleri dönüşüyor.</li>
+              <li>Sana etkisi: üretmek kolaylaşıyor, seçilmek zorlaşıyor.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>Kısa yorum</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">X</span>
+              <span style="color:var(--muted);font-size:13px;">#4</span>
+            </div>
+            <h3>X yeni özellik getirdi</h3>
+            <p>Platform yeni içerik gösterim biçimiyle dikkat çekiyor.</p>
+            <ul class="bullet-list">
+              <li>Neden trend: platform değişiklikleri hızlı yayılır.</li>
+              <li>Neden önemli: kullanıcı davranışını etkileyebilir.</li>
+              <li>Sana etkisi: daha fazla içerik ve daha farklı akış görebilirsin.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>Sade anlatım</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+
+          <article class="trend-card">
+            <div class="trend-top">
+              <span class="tag">Kripto</span>
+              <span style="color:var(--muted);font-size:13px;">#5</span>
+            </div>
+            <h3>Kripto piyasasında ani hareket</h3>
+            <p>Piyasadaki hızlı değişim yatırımcıların dikkatini çekti.</p>
+            <ul class="bullet-list">
+              <li>Neden trend: ani fiyat hareketi.</li>
+              <li>Neden önemli: risk ve fırsat aynı anda büyüyor.</li>
+              <li>Sana etkisi: finans içeriklerine ilgi yeniden artabilir.</li>
+            </ul>
+            <div class="trend-footer">
+              <span>1 dakikada</span>
+              <span>Detay →</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="nasil">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Sistem</div>
+            <h2 class="section-title">Trendakış nasıl çalışır?</h2>
+            <p class="section-sub">
+              Siteyi sürdürülebilir yapan şey, kısa ve sabit şablonlu içerik yapısı.
+            </p>
+          </div>
+        </div>
+
+        <div class="how-grid">
+          <article class="how-card">
+            <div class="how-num">1</div>
+            <h3>Konu seç</h3>
+            <p>Google Trends, sosyal medya ve büyük internet gündeminden 1 ana konu seç.</p>
+          </article>
+
+          <article class="how-card">
+            <div class="how-num">2</div>
+            <h3>Kısa anlat</h3>
+            <p>2 cümlede özet, neden trend ve neden önemli formatında yaz.</p>
+          </article>
+
+          <article class="how-card">
+            <div class="how-num">3</div>
+            <h3>Yayınla</h3>
+            <p>Siteye ekle, sonra aynı içeriğin kısa halini sosyal medyada paylaş.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-wrap">
+      <div>© 2026 Trendakış. Tüm hakları saklıdır.</div>
+      <div>Gündemi 1 dakikada anla.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
